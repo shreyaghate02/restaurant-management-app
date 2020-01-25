@@ -2152,7 +2152,7 @@ expo-asset@~8.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-constants@~8.0.0:
+expo-constants@^8.0.0, expo-constants@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-8.0.0.tgz#e2c5a072dacb4263ccfc57dcb4835ca791960d48"
   integrity sha512-NGRwSWfhwNFA9WVLXwqnSDPJJ4DdXTqEkl9Fr9PcyW5VCoFgz7uke256E1YZsYhOE0Ph365lu/5jjZs+MRmRog==
@@ -2188,7 +2188,7 @@ expo-linear-gradient@~8.0.0:
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-8.0.0.tgz#972d33e92714d4a4485635683b5bfa357ecec41b"
   integrity sha512-5G3ePGAHUoyBWbGITw5RtdJpssH8TXhCgt55cV+5LTTFjr51OZcuOmGua1vRoVFKBC/9ibLW465GEx9H/HS07Q==
 
-expo-location@~8.0.0:
+expo-location@^8.0.0, expo-location@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-8.0.0.tgz#58dd54e47b12e26f9f2a97ded3cd15f8fa959b85"
   integrity sha512-48i4dUCaqPTwSri79yummKwg6vE6loI7d4iHCrbG4EEuN3fhS8I9xU60CEkoNZTziH9zK0iw4KSjr7DbXUAaCw==
