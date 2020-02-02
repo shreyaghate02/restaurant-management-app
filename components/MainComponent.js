@@ -4,7 +4,36 @@ import Home from './HomeComponent';
 import Dishdetail from './DishdetailComponent';
 import { View, Platform } from 'react-native';
 import { createStackNavigator,createDrawerNavigator } from 'react-navigation';
-import { Icon } from 'react-native-elements';
+import About from './AboutUsComponent';
+import ContactUs from './ContactUsComponent';
+
+const ContactNavigator = createStackNavigator({
+  ContactUs: { screen: ContactUs }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"
+    },
+    headerTintColor: "#fff"
+  })
+});
+
+const AboutNavigator = createStackNavigator({
+  About: { screen: About }
+}, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"
+    },
+    headerTintColor: "#fff"
+  })
+});
 
 const MenuNavigator = createStackNavigator({
   Menu: { screen: Menu },
@@ -39,23 +68,43 @@ headerTintColor: "#fff"
 });
 
 const MainNavigator = createDrawerNavigator({
-Home:
-{ screen: HomeNavigator,
-  navigationOptions: {
-    title: 'Home',
-    drawerLabel: 'Home'
-  }
-},
-Menu:
-{ screen: MenuNavigator,
-  navigationOptions: {
-    title: 'Menu',
-    drawerLabel: 'Menu'
-  },
-}
-}, {
+  Home:
+    { screen: HomeNavigator,
+      navigationOptions: {
+        title: 'Home',
+        drawerLabel: 'Home'
+      }
+    },
+
+  About:
+      { screen: AboutNavigator,
+        navigationOptions: {
+          title: 'About Information',
+          drawerLabel: 'About Us'
+        },
+      },
+
+
+  Menu:
+    { screen: MenuNavigator,
+      navigationOptions: {
+        title: 'Menu',
+        drawerLabel: 'Menu'
+      },
+    },
+  ContactUs:
+      { screen: ContactNavigator,
+        navigationOptions: {
+          title: 'Contact Information',
+          drawerLabel: 'Contact Us'
+        },
+      }
+        },
+
+{
 drawerBackgroundColor: '#D1C4E9'
 });
+
 
 
 class Main extends Component {
