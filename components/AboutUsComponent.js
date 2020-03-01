@@ -28,7 +28,7 @@ class About extends Component {
   };
 
   render() {
-    const renderleader = ({item, index}) => {
+    const renderLeader = ({item, index}) => {
 
         return (
                 <ListItem
