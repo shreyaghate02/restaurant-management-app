@@ -29,13 +29,17 @@ function RenderDish(props) {
             return false;
     }
 
+    const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+        if ( dx > 200 )
+            return true;
+        else
+            return false;
+    }
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: (e, gestureState) => {
             return true;
         },
-        onPanResponderGrant: () => {
-            this.view.rubberBand(1000)
-            .then(endState => console.log(endState.finished ? 'finished' : 'cancelled'));},
+        onPanResponderGrant: () => { this.view.rubberBand(1000).then(endState => console.log(endState.finished ? 'finished' : 'cancelled')); },
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
             if (recognizeDrag(gestureState))
@@ -48,6 +52,10 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+            else if(recognizeComment(gestureState))
+            {
+                props.toggleModal()
+            }
 
             return true;
         }
@@ -55,10 +63,8 @@ function RenderDish(props) {
 
     if (dish != null) {
         return(
-            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}
-                ref={this.handleViewRef}
-                {...panResponder.panHandlers}>
-            <Card
+            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}  ref={this.handleViewRef} {...panResponder.panHandlers}>
+                <Card
                 featuredTitle={dish.name}
                 image={{ uri: baseUrl + dish.image }}>
                 <Text style={{ margin: 10 }}>
@@ -99,15 +105,10 @@ function RenderComments(props) {
 
     const renderCommentsItem = ({ item, index }) => {
         return (
-            <View key={index} style={{ margin: 10 }}>
-                <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-                <Rating
-                    readonly
-                    startingValue={item.rating}
-                    imageSize={12}
-                    style={styles.rating}
-                />
-                <Text style={{ fontSize: 12 }}>{'--' + item.author + ', ' + item.date}</Text>
+            <View key={index} style={{margin: 10}}>
+                <Text style={{fontSize: 14}}>{item.comment}</Text>
+                <Text style={{fontSize: 12}}>{item.rating} Stars</Text>
+                <Text style={{fontSize: 12}}>{'-- ' + item.author + ', ' + item.date} </Text>
             </View>
         );
     }
