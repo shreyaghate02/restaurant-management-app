@@ -39,11 +39,11 @@ class LoginTab extends Component {
         tabBarIcon: ({ tintColor }) => (
             <Icon
               name='sign-in'
-              type='font-awesome'            
+              type='font-awesome'
               size={24}
               iconStyle={{ color: tintColor }}
             />
-          ) 
+          )
     };
 
     handleLogin() {
@@ -87,7 +87,7 @@ class LoginTab extends Component {
                         icon={
                             <Icon
                                 name='sign-in'
-                                type='font-awesome'            
+                                type='font-awesome'
                                 size={24}
                                 color= 'white'
                             />
@@ -105,8 +105,7 @@ class LoginTab extends Component {
                         icon={
                             <Icon
                                 name='user-plus'
-                                type='font-awesome'            
-                                size={24}
+                                type='font-awesome'
                                 color= 'blue'
                             />
                         }
@@ -137,6 +136,7 @@ class RegisterTab extends Component {
         }
     }
 
+
     getImageFromCamera = async () => {
         const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
         const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -144,39 +144,55 @@ class RegisterTab extends Component {
         if (cameraPermission.status === 'granted' && cameraRollPermission.status === 'granted') {
             let capturedImage = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
-                aspect: [4, 3]
+                aspect: [4, 3],
             });
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-                this.processImage(capturedImage.uri);
+                this.processImage( capturedImage.uri );
             }
         }
 
     }
 
-    processImage = async (imageUri) => {
-        let processedImage = await ImageManipulator.manipulateAsync(
-            imageUri, 
-            [
-                {resize: {width: 400}}
-            ],
-            {format: 'png'}
-        );
-        console.log(processedImage);
-        this.setState({imageUrl: processedImage.uri });
+  getImageFromGallery = async () => {
+   const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
-    }
-    
+   if (cameraRollPermission.status === 'granted') {
+     const libraryImage = await ImagePicker.launchImageLibraryAsync({
+       allowsEditing: true,
+       aspect: [4, 3],
+       mediaTypes: 'Images',
+     });
+
+     if (!libraryImage.cancelled) {
+       this.processImage(libraryImage.uri);
+     }
+   }
+ }
+
+    processImage = async (imageUri) => {
+       let processedImage = await ImageManipulator.manipulateAsync(
+           imageUri,
+           [
+               {resize: {width: 400}}
+           ],
+           {format: 'png'}
+       );
+       console.log(processedImage);
+       this.setState({imageUrl: processedImage.uri });
+
+   }
+
     static navigationOptions = {
         title: 'Register',
         tabBarIcon: ({ tintColor, focused }) => (
             <Icon
               name='user-plus'
-              type='font-awesome'            
+              type='font-awesome'
               size={24}
               iconStyle={{ color: tintColor }}
             />
-          ) 
+          )
     };
 
     handleRegister() {
@@ -191,15 +207,19 @@ class RegisterTab extends Component {
             <ScrollView>
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
-                    <Image 
-                        source={{uri: this.state.imageUrl}} 
+                    <Image
+                        source={{uri: this.state.imageUrl}}
                         loadingIndicatorSource={require('./images/logo.png')}
-                        style={styles.image} 
+                        style={styles.image}
                         />
                     <Button
                         title="Camera"
                         onPress={this.getImageFromCamera}
                         />
+                        <Button
+                            title="Gallery"
+                            onPress={this.getImageFromGallery}
+                            />
                 </View>
                 <Input
                     placeholder="Username"
@@ -249,7 +269,7 @@ class RegisterTab extends Component {
                         icon={
                             <Icon
                                 name='user-plus'
-                                type='font-awesome'            
+                                type='font-awesome'
                                 size={24}
                                 color= 'white'
                             />
@@ -273,7 +293,8 @@ const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
         flexDirection: 'row',
-        margin: 20
+        margin: 20,
+        justifyContent: 'space-between',
     },
     image: {
       margin: 10,
